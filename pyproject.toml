@@ -1,0 +1,46 @@
+
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robotstxt"
+version = "1.0.0"
+dependencies = []
+requires-python = ">=3.12"
+authors = [
+  {name = "tikubonn"}
+]
+maintainers = [
+  {name = "tikubonn"}
+]
+description = "Provide some functions to load robots.txt and check access permission."
+readme = "README.md"
+license = "AGPL-3.0"
+license-files = ["LICEN[CS]E"]
+keywords = []
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Development Status :: 5 - Production/Stable"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.4.2"
+]
+
+[project.urls]
+Homepage = "https://github.com/tikubonn/robotstxt"
+Documentation = "https://github.com/tikubonn/robotstxt/README.md"
+Repository = "https://github.com/tikubonn/robotstxt.git"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-v"
+testpaths = [
+  "test"
+]
