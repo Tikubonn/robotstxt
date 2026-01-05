@@ -134,12 +134,12 @@ class RobotsTxt:
 
   def dump (self, stream:TextIOBase):
 
-    """...
+    """本オブジェクトの内容を robots.txt 形式の文字列として file-like オブジェクトに書き出します。
 
     Parameters
     ----------
     stream : TextIOBase
-      ...
+      出力先となる file-like オブジェクトです。
     """
 
     for user_agent, permissions in sorted(self.permissions.items()):
@@ -155,12 +155,12 @@ class RobotsTxt:
 
   def dumps (self) -> str:
 
-    """...
+    """本オブジェクトの内容を robots.txt 形式の文字列として取得します。
 
     Returns
     -------
     str
-      ...
+      robots.txt 形式の文字列に変換された本オブジェクトの内容です。
     """
 
     with StringIO() as stream:
