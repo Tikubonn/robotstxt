@@ -70,4 +70,4 @@ However, please note that this does not guarantee ongoing development or support
 
 © 2025 tikubonn
 
-closeable licensed under the [AGPLv3](./LICENSE).
+robotstxt licensed under the [AGPLv3](./LICENSE).
