@@ -121,10 +121,6 @@ class RobotsTxt:
 
   """UserAgentPermissions とサイトマップの集合をまとめたクラスです。
 
-  Warnings
-  --------
-  このオブジェクトは `load` もしくは `loads` 関数によって作成される事を前提に設計されています。
-
   Attributes
   ----------
   permissions : UserAgentPermissions
@@ -135,6 +131,41 @@ class RobotsTxt:
 
   permissions:UserAgentPermissions
   sitemaps:set[str]
+
+  def dump (self, stream:TextIOBase):
+
+    """...
+
+    Parameters
+    ----------
+    stream : TextIOBase
+      ...
+    """
+
+    for user_agent, permissions in sorted(self.permissions.items()):
+      if permissions.allows or permissions.disallows:
+        print("User-Agent: {:s}".format(user_agent), file=stream)
+        for allow in permissions.allows:
+          print("Allow: {:s}".format(allow), file=stream)
+        for disallow in permissions.disallows:
+          print("Disallow: {:s}".format(disallow), file=stream)
+        print("", file=stream)
+    for sitemap in self.sitemaps:
+      print("Sitemap: {:s}".format(sitemap), file=stream)
+
+  def dumps (self) -> str:
+
+    """...
+
+    Returns
+    -------
+    str
+      ...
+    """
+
+    with StringIO() as stream:
+      self.dump(stream)
+      return stream.getvalue()
 
 class ParseError (Exception):
 
@@ -186,12 +217,8 @@ def load (file:TextIOBase, *, ignore_error:bool=False) -> RobotsTxt:
     robots.txt を読み込んで作成されたオブジェクトです。
   """
 
-  #check argument type of `file`.
-
   if not isinstance(file, TextIOBase):
     raise ValueError("Argument `file` must be {:s} instance: {:s}".format(repr(TextIOBase), repr(file)))
-
-  #main
 
   user_agent_permissions = UserAgentPermissions()
   cur_permissions = None
@@ -265,12 +292,8 @@ def loads (source:str, *, ignore_error:bool=False) -> RobotsTxt:
     robots.txt を読み込んで作成されたオブジェクトです。
   """
 
-  #check argument type of `file`.
-
   if not isinstance(source, str):
     raise ValueError("Argument `source` must be {:s} instance: {:s}".format(repr(str), repr(source)))
-
-  #main
 
   with StringIO(source) as stream:
     return load(stream, ignore_error=ignore_error)
